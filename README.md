@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Info
+This project uses https://tst.agrofintech.kz/api/v1/getUser/ API. The web app scans the QR code, gets the hashed string and then gets the user data via API.
+Angular version of web app is [here](https://github.com/ltwmori/qr-scanner-angular).
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
