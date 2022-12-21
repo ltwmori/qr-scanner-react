@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import QrCodeScanner from "./components/QrCodeScanner";
+import { IData } from "./ts/types";
+
+import "./App.css";
 
 function App() {
+  const [user, setUser] = useState<IData[]>([]);
+
+  const getDataFromChild = (data: IData) => {
+    setUser((prev) => [...prev, data].splice(-5));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <QrCodeScanner getDataFromChild={getDataFromChild} />
+      <div className="users">
+        {user.map((item) => (
+          <div
+            className={
+              item.updated_at && (item.count || item.count === 0)
+                ? "user-red"
+                : "user"
+            }
+            key={item.hash}
+          >
+            <div className="user-header">
+              <p className="name">{item.name}</p>
+              <p className="">
+                {item.updated_at ? item.updated_at.toString() : " "}
+              </p>
+            </div>
+            <div className="user-header">
+              <p>{item.hash}</p>
+              <p>{item.count ? item.count : null}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
